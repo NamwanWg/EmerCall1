@@ -6,15 +6,18 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.ActionBarOverlayLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
+import namwan.snru.ac.th.emercall.fragment.HospitalFragment;
 import namwan.snru.ac.th.emercall.fragment.MainFragment;
+
 
 public class MainActivity extends AppCompatActivity {
 
-//    Explicit
+    //    Explicit
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
 
@@ -23,6 +26,38 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+//        Police Controller
+        TextView policeTextView = findViewById(R.id.txtPolice);
+        policeTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.contentFragment, new MainFragment()).commit();
+                drawerLayout.closeDrawers();
+            }
+        });
+
+
+
+//        Hospital Controller
+        TextView hospitalTextView = findViewById(R.id.txtHospital);
+        hospitalTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.contentFragment, new HospitalFragment()).commit();
+                drawerLayout.closeDrawers();
+            }
+        });
+
+
+//        Insurance Controller
+
+
+//        Exit Controller
+
+
 
 //        Create Toolbar
         Toolbar toolbar = findViewById(R.id.toolbarMain1);
@@ -40,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 //        Add Fragment
-        if (savedInstanceState == null){
+        if (savedInstanceState == null) {
 
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.contentFragment, new MainFragment()).commit();
@@ -55,7 +90,6 @@ public class MainActivity extends AppCompatActivity {
 
         if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
             return true;
-
         }
 
         return super.onOptionsItemSelected(item);
